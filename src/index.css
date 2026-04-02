@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #E9EAEC;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #003C64;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f5f6;
+  --secondary-foreground: #003C64;
+  --muted: #f4f5f6;
+  --muted-foreground: #6b7280;
+  --accent: #F7AC2D;
+  --accent-foreground: #003C64;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e4e7;
+  --input: #e2e4e7;
+  --ring: #003C64;
+  --chart-1: #003C64;
+  --chart-2: #F7AC2D;
+  --chart-3: #10b981;
+  --chart-4: #6366f1;
+  --chart-5: #ec4899;
+  --radius: 0.75rem;
+  --sidebar: #003C64;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #F7AC2D;
+  --sidebar-primary-foreground: #003C64;
+  --sidebar-accent: #004d80;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #004d80;
+  --sidebar-ring: #F7AC2D;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    margin: 0;
+  }
+}
+
+/* ── Scrollbar ──────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 999px;
+  opacity: 0.3;
+}
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* ── Sheet / Mobile sidebar overlay ───── */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease-out;
+}
+.sheet-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 51;
+  width: 16rem;
+  transform: translateX(-100%);
+  animation: slideIn 0.3s ease-out forwards;
+}
+.sheet-content.closing {
+  animation: slideOut 0.2s ease-in forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* ── Dropdown Menu ──────────────────────── */
+.dropdown-content {
+  position: absolute;
+  z-index: 50;
+  min-width: 14rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.25rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  animation: dropdownIn 0.15s ease-out;
+}
+@keyframes dropdownIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  text-align: left;
+}
+.dropdown-item:hover {
+  background: var(--muted);
+}
+.dropdown-separator {
+  height: 1px;
+  background: var(--border);
+  margin: 0.25rem 0;
+}
+.dropdown-label {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* ── Recharts tooltip override ──────────── */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+.custom-tooltip {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  padding: 0.75rem 1rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08) !important;
+}
+.custom-tooltip .label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--foreground);
+}
+.custom-tooltip .value {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
